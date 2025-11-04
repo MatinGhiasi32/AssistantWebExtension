@@ -1,0 +1,180 @@
+/* Reset default browser padding and margins */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #D5FFFF;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    background-color: #f4f4f4;
+}
+
+/* Main layout */
+#layout {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    background: white;
+    border: 1px solid #ccc;
+}
+
+/* Calendar and Notes sections */
+#calendar-head, #notes-head {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#calendar-section, #notes-section {
+    flex: 1;
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+/* Middle section */
+#main-section {
+    flex: 1.75;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Search bar area */
+#search-area {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+/* search button visually left of the input */
+#search-button {
+    padding: 8px 12px;
+    order: -1;               /* put button before input visually */
+    margin-right: 8px;       /* spacing between button and input */
+    margin-left: 0;
+    cursor: pointer;
+}
+
+/* input base: default to LTR for typed latin, but will be adjusted by JS */
+#search-bar {
+    width: 70%;
+    padding: 8px;
+    font-size: 1em;
+    direction: ltr;
+    text-align: left;
+}
+
+/* force placeholder (preview text) to render RTL and align right (Farsi) */
+#search-bar::placeholder {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Quick Access section */
+#quick-access {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Centered horizontal layout with reversed order (right-to-left growth) */
+#quick-links {
+    display: flex;
+    flex-direction: row-reverse;  /* makes boxes grow RIGHT → LEFT */
+    justify-content: center;      /* keeps them centered */
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+}
+
+/* Box styles */
+#quick-links li {
+    position: relative;
+}
+
+#quick-links a,
+#add-box button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background: #f5f6fa;
+    border: 1px solid #d1d8e0;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #0077cc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+/* Favicon inside box */
+#quick-links a img {
+    width: 48%;
+    height: 48%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Text label */
+.link-label {
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+
+/* Add (+) box styling */
+#add-link {
+    font-size: 2.5rem;
+    color: #0077cc;
+    border: 2px dashed #0077cc;
+    background: #e8f6ff;
+    transition: background 0.2s, color 0.2s;
+}
+
+#add-link:hover {
+    background: #d0efff;
+    color: #004c99;
+}
+
+/* Trash can icon in top-right */
+.delete-btn {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.delete-btn:hover {
+    color: #d33;
+}
+
+/* Responsive behavior */
+@media (max-width: 600px) {
+    #quick-links {
+        gap: 12px;
+    }
+
+    #quick-links a,
+    #add-box button {
+        width: 80px;
+        height: 80px;
+    }
+}

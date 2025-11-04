@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Extension Dashboard</title>
+</head>
+<body>
+    <main id="layout">
+        <!-- Left Section: Calendar -->
+        <section id="calendar-section">
+            <h2 id="calendar-head">تقویم</h2>
+        </section>
+
+        <!-- Middle Section: Search + Quick Access -->
+        <section id="main-section">
+            <header id="search-area">
+                <input type="text" id="search-bar" placeholder="جستجو">
+                <button id="search-button">🔍</button>
+            </header>
+
+            <section id="quick-access">
+                <nav>
+                    <ul id="quick-links">
+                        <li id="add-box">
+                            <button id="add-link">+</button>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
+        </section>
+
+        <!-- Right Section: Notes -->
+        <section id="notes-section">
+            <h2 id="notes-head">یادداشت‌ها</h2>
+            <textarea id="notes-area" placeholder="Write your notes here..."></textarea>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
