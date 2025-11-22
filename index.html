@@ -11,6 +11,37 @@
         <!-- Left Section: Calendar -->
         <section id="calendar-section">
             <h2 id="calendar-head">تقویم</h2>
+
+            <!-- Calendar card -->
+            <div id="calendar" class="calendar-card" aria-label="Calendar">
+                <div class="calendar-controls" role="toolbar" aria-label="Month and year navigation">
+                    <button id="prev-year" class="cal-btn" title="Previous year">«</button>
+                    <button id="prev-month" class="cal-btn" title="Previous month">‹</button>
+
+                    <div id="month-year" class="month-year" aria-live="polite"></div>
+
+                    <button id="next-month" class="cal-btn" title="Next month">›</button>
+                    <button id="next-year" class="cal-btn" title="Next year">»</button>
+                </div>
+
+                <div class="calendar-grid" role="grid" aria-labelledby="month-year">
+                    <div class="calendar-weekdays" role="row">
+                        <!-- Weekday headings inserted by JS or fallback -->
+                        <div class="weekday">Sun</div>
+                        <div class="weekday">Mon</div>
+                        <div class="weekday">Tue</div>
+                        <div class="weekday">Wed</div>
+                        <div class="weekday">Thu</div>
+                        <div class="weekday">Fri</div>
+                        <div class="weekday">Sat</div>
+                    </div>
+
+                    <div id="calendar-days" class="calendar-days" role="rowgroup">
+                        <!-- Days will be rendered here by JS -->
+                    </div>
+                </div>
+            </div>
+            <!-- end calendar -->
         </section>
 
         <!-- Middle Section: Search + Quick Access -->

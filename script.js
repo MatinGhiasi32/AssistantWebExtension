@@ -203,4 +203,134 @@ document.addEventListener('DOMContentLoaded', () => {
     const addNoteBtn = document.getElementById('add-note');
     if (addNoteBtn) addNoteBtn.addEventListener('click', addNote);
 
+    /* ------------------ Calendar init ------------------ */
+    (function initCalendar() {
+        // DOM refs
+        const monthYearLabel = document.getElementById('month-year');
+        const daysContainer = document.getElementById('calendar-days');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+        const prevYearBtn = document.getElementById('prev-year');
+        const nextYearBtn = document.getElementById('next-year');
+
+        // Start with today's date
+        const today = new Date();
+        let viewYear = today.getFullYear();
+        let viewMonth = today.getMonth(); // 0-11
+        let selectedDate = null;
+
+        const monthNames = [
+            'January','February','March','April','May','June',
+            'July','August','September','October','November','December'
+        ];
+
+        function clearDays() {
+            daysContainer.innerHTML = '';
+        }
+
+        function renderMonth(year, month) {
+            clearDays();
+
+            // Update label
+            monthYearLabel.textContent = `${monthNames[month]} ${year}`;
+
+            // First day of month (0=Sun..6=Sat)
+            const first = new Date(year, month, 1).getDay();
+            // Number of days in month
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Add placeholders for days before first
+            for (let i = 0; i < first; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'day day-empty';
+                daysContainer.appendChild(empty);
+            }
+
+            // Add day cells
+            for (let d = 1; d <= daysInMonth; d++) {
+                const cell = document.createElement('div');
+                cell.className = 'day';
+                cell.setAttribute('role', 'gridcell');
+                cell.setAttribute('tabindex', '0');
+                cell.dataset.day = d;
+                cell.dataset.month = month;
+                cell.dataset.year = year;
+                cell.textContent = d;
+
+                // mark today
+                if (year === today.getFullYear() && month === today.getMonth() && d === today.getDate()) {
+                    cell.classList.add('day-today');
+                    cell.setAttribute('aria-current', 'date');
+                }
+
+                // mark selected
+                if (selectedDate &&
+                    selectedDate.getFullYear() === year &&
+                    selectedDate.getMonth() === month &&
+                    selectedDate.getDate() === d) {
+                    cell.classList.add('day-selected');
+                }
+
+                // click/select behavior
+                cell.addEventListener('click', () => {
+                    // unselect previous
+                    const prev = daysContainer.querySelector('.day-selected');
+                    if (prev) prev.classList.remove('day-selected');
+
+                    // select this
+                    cell.classList.add('day-selected');
+                    selectedDate = new Date(year, month, d);
+
+                    // You can hook other behavior here (e.g., show events)
+                    // console.log('Selected', selectedDate.toISOString());
+                });
+
+                // keyboard accessibility (Enter / Space)
+                cell.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        cell.click();
+                    }
+                });
+
+                daysContainer.appendChild(cell);
+            }
+        }
+
+        // Navigation handlers
+        function prevMonth() {
+            viewMonth--;
+            if (viewMonth < 0) {
+                viewMonth = 11;
+                viewYear--;
+            }
+            renderMonth(viewYear, viewMonth);
+        }
+        function nextMonth() {
+            viewMonth++;
+            if (viewMonth > 11) {
+                viewMonth = 0;
+                viewYear++;
+            }
+            renderMonth(viewYear, viewMonth);
+        }
+        function prevYear() {
+            viewYear--;
+            renderMonth(viewYear, viewMonth);
+        }
+        function nextYear() {
+            viewYear++;
+            renderMonth(viewYear, viewMonth);
+        }
+
+        // Hook buttons
+        prevMonthBtn.addEventListener('click', prevMonth);
+        nextMonthBtn.addEventListener('click', nextMonth);
+        prevYearBtn.addEventListener('click', prevYear);
+        nextYearBtn.addEventListener('click', nextYear);
+
+        // Initial render
+        renderMonth(viewYear, viewMonth);
+    })();
+    /* ---------------- end Calendar init --------------- */
 });
